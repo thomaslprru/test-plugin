@@ -16,6 +16,7 @@ def shouldBeIndustrialized(env_variables=None,project=None,shared_datasets=None,
         try:
             ds_info_raw = ds.get_info().get_raw()
             if ds_info_raw['type'] == 'BigQuery':
+                recipe_name=ds_info_raw['name']
                 table = ds_info_raw['dataset']['params']['table']
                 dataset_name = ds_info_raw['dataset']['params']['schema'].replace('_${env_type}_','_lab_')
                 project_name = ds_info_raw['dataset']['params']['catalog']+"." if 'catalog' in ds_info_raw['dataset']['params'] else ""
@@ -25,6 +26,7 @@ def shouldBeIndustrialized(env_variables=None,project=None,shared_datasets=None,
         except:
             dataset_info = findDatasetByName(dataset_list=shared_datasets,name=ds.name.split(".")[-1])
             if dataset_info is not None:
+                recipe_name = "{:} - {:} | SHARED DATASET".format(dataset_info['projectKey'],dataset_info['name'])
                 table = dataset_info['table']
                 dataset_name = dataset_info['schema'].replace('_${env_type}_','_lab_')
                 project_name = dataset_info['catalog']+"." if 'catalog' in dataset_info else ""
@@ -37,6 +39,6 @@ def shouldBeIndustrialized(env_variables=None,project=None,shared_datasets=None,
         if is_find and "_lab_" in dataset_name:
             if not("${projectKey}" in table or table[:len(projectKey)] == projectKey):
                 recommendedReplication.append(conn)
-                logger.add_log(severity="ERROR_TO_RAISE",topic="TABLE_SHOULD_BE_INDUSTRIALIZED",description=conn+" ({:})".format(dataset_name))
+                logger.add_log(severity="ERROR_TO_RAISE",topic="TABLE_SHOULD_BE_INDUSTRIALIZED",description=conn+" ({:})".format(recipe_name))
     
     return recommendedReplication
