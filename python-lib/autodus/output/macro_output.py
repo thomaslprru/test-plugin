@@ -210,7 +210,6 @@ def resultsToHtml(results,logger):
     # Rubrique générale
     html += """<div id="general">"""
     
-    html+= """<div>Warning : """+str(logsCpt['warning'])+""" | Erreur : """+str(logsCpt['error'])+"""</div>"""
     
     html+= """<table border="1" class="dataframe">
 
