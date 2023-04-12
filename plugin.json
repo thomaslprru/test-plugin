@@ -1,0 +1,29 @@
+{
+    // Plugin identifiers are globally unique and only contain A-Za-z0-9_-
+    "id": "1-IRIS-Industrialisation",
+
+    // It is highly recommended to use Semantic Versioning
+    "version": "0.0.9",
+
+    // Meta data for display purposes:
+    "meta": {
+        // label: name of the plugin as displayed, should be short
+        "label": "Iris Industrialisation",
+
+        // description: longer string to help end users understand what this plugin does
+        "description": "Plugin pour faciliter le processus d'industrialisation des projets.",
+
+        "author": "tlapierr",
+
+        // icon: must be one of the FontAwesome 3.2.1 icons, complete list here at https://fontawesome.com/v3.2.1/icons/
+        "icon": "icon-rocket",
+
+        // List of tags for filtering the list of plugins
+        "tags": ["industrialisation","indus"], //for example: ["Machine Learning", "NLP"]
+
+        // URL where the user can learn more about the plugin
+        "url": "https://edh0labue-dku.prod.gcp.groupement.systeme-u.fr/projects/UIRIS/wiki/1/Macro%20de%20normalisation",
+
+        "licenseInfo": "Apache Software License"
+    }
+}

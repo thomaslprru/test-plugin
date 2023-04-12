@@ -1,0 +1,97 @@
+/* This file is the descriptor for the python runnable normalisation */
+{
+    "meta": {
+        // label: name of the runnable as displayed, should be short
+        "label": "Normalisation des variables",
+
+        // description: longer string to help end users understand what this runnable does
+        "description": "Automatise l'étape de variabilisation nécessaire lors d'une bascule de Dataiku Design vers Dataiku Automation ",
+        
+
+        // icon: must be one of the FontAwesome 3.2.1 icons, complete list here at https://fontawesome.com/v3.2.1/icons/
+        "icon": "icon-rocket"
+    },
+
+    /* whether the runnable's code is untrusted */
+    "impersonate": false,
+
+
+    /* params:
+    DSS will generate a formular from this list of requested parameters.
+    Your component code can then access the value provided by users using the "name" field of each parameter.
+
+    Available parameter types include:
+    STRING, INT, DOUBLE, BOOLEAN, DATE, SELECT, TEXTAREA, DATASET, DATASET_COLUMN, MANAGED_FOLDER, PRESET and others.
+
+    For the full list and for more details, see the documentation: https://doc.dataiku.com/dss/latest/plugins/reference/params.html
+    */
+    "params": [
+        {
+          "type": "BOOLEAN",
+          "name": "is_simulation",
+          "label": "Mode simulation",
+          "defaultValue": true,
+          "description": "En mode simulation, le projet cible n'est pas modifié."
+        },
+        {
+          "type": "BOOLEAN",
+          "name": "verif_python_recipe_connexion",
+          "label": "Vérifier les recettes Python",
+          "defaultValue": true,
+          "description": "Permet de vérifier qu'aucun appel BigQuery ou PostgreSQL ne soit fait depuis des recettes Python"
+        },
+        {
+          "type": "BOOLEAN",
+          "name": "error_table_to_industrialize",
+          "label": "Vérifier les tables à industrialiser",
+          "defaultValue": true,
+          "description": "Permet de vérifier que toutes les tables en entrée soient industrialisées"
+        }
+    ],
+
+    /* list of required permissions on the project to see/run the runnable */
+    "permissions": ["WRITE_CONF"],
+
+    /* what the code's run() returns:
+       - NONE : no result
+       - HTML : a string that is a html (utf8 encoded)
+       - FOLDER_FILE : a (folderId, path) pair to a file in a folder of this project (json-encoded)
+       - FILE : raw data (as a python string) that will be stored in a temp file by DSS
+       - URL : a url
+     */
+    "resultType": "HTML",
+
+    /* label to use when the runnable's result is not inlined in the UI (ex: for urls) */
+    "resultLabel": "my production",
+
+    /* for FILE resultType, the extension to use for the temp file */
+    "extension": "txt",
+
+    /* for FILE resultType, the type of data stored in the temp file */
+    "mimeType": "text/plain",
+
+    /* Macro roles define where this macro will appear in DSS GUI. They are used to pre-fill a macro parameter with context.
+
+       Each role consists of:
+        - type: where the macro will be shown
+            * when selecting DSS object(s): DATASET, DATASETS, API_SERVICE, API_SERVICE_VERSION, BUNDLE, VISUAL_ANALYSIS, SAVED_MODEL, MANAGED_FOLDER
+            * in the global project list: PROJECT_MACROS
+        - targetParamsKey(s): name of the parameter(s) that will be filled with the selected object
+    */
+    "macroRoles": [
+        /**
+         {
+            "type": "BUNDLE",
+            "targetParamsKey": "bundle"
+        },*/
+        {
+           "type": "DATASET",
+           "targetParamsKey": "input_dataset",
+           "applicableToForeign": true
+        },
+        {
+           "type": "PROJECT_MACROS",
+           "targetParamsKey": "project_macros"
+        }
+    ]
+}
