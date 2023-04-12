@@ -143,6 +143,6 @@ def normaliseWithTBL(text=None,setting=None,connection_dict=None,name=None,proje
 
     inputsTable = [project.get_dataset(i).name for i in setting.get_flat_input_refs()]
                          
-    clean_query = clean_query(text,inputsTable,connection_dict,env_variables,logger,name)
+    cleaned_query = clean_query(text,inputsTable,connection_dict,env_variables,logger,name)
 
-    return apply_tbl_normalization(clean_query,inputsTable,connection_dict,env_variables,logger,name)
+    return apply_tbl_normalization(cleaned_query,inputsTable,connection_dict,env_variables,logger,name)
